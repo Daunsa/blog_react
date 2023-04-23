@@ -1,8 +1,43 @@
+import { api } from "../funciones/constGlobales";
+
 import Card from "./Card";
-import Card2 from "./Card2";
 import Card3 from "./Card3";
+import Popular from "./Popular";
+
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 function Pagina() {
+
+    const { id } = useParams();
+
+    const [dataPosts, setDataPosts] = useState([]);
+    const [dataTemas, setDataTemas] = useState([]);
+
+
+    useEffect(() => {
+        inicio();
+    }, [id]);
+
+    const inicio = () => {
+        axios.get(`${api}/articulosOrganizacion/${id}/`)
+            .then(res => {
+                setDataPosts(res.data);
+            })
+            .catch(error => {
+                console.error(error.response.status);
+            });
+        axios.get(`${api}/temas/`)
+            .then(res => {
+                setDataTemas(res.data);
+            })
+            .catch(error => {
+                console.error(error.response.status);
+            });
+    };
+
+
     return (
         <>
             <div className="flex xl:px-20 px-8 py-20 2xl:mx-auto 2xl:container relative z-40">
@@ -17,7 +52,6 @@ function Pagina() {
                                 <br />
                                 Geographic
                             </h1>
-                            <h1 className="text-5xl font-bold xl:hidden block leading-tight lg:leading-10 text-gray-800">Erik Pinedo Journalism</h1>
                             <p className="text-base font-medium leading-6 mt-4 text-gray-600">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem, minima. Cumque, necessitatibus distinctio earum eum possimus ipsam facere, quaerat recusandae hic, excepturi aperiam aut temporibus laborum aliquid assumenda consequatur sapiente.</p>
                         </div>
                     </div>
@@ -32,123 +66,43 @@ function Pagina() {
                         <div className="flex-shrink max-w-full w-full lg:w-2/3  overflow-hidden">
                             <div className="w-full py-3">
                                 <h2 className="text-gray-800 text-2xl font-bold">
-                                    <span className="inline-block h-5 border-l-3 border-red-600 mr-2"></span>Bloque 1
+                                    <span className="inline-block h-5 border-l-3 border-red-600 mr-2"></span>Recientes
                                 </h2>
                             </div>
                             <div className="flex flex-row flex-wrap -mx-3">
-                                {["https://i.imgur.com/SR04reG.jpeg", "https://i.imgur.com/cYYrJvY.jpeg", "https://i.imgur.com/2YQAdPl.jpeg", "https://i.imgur.com/6gzLJlt.jpeg"].map((data) => (
+                                {dataPosts.slice(0, 6).map((data) => (
                                     <Card data={data} />
                                 ))}
                             </div>
                         </div>
                         {/* right */}
-                        <div className="flex-shrink max-w-full w-full lg:w-1/3 lg:pl-8 lg:pt-14 lg:pb-8 order-first lg:order-last">
-                            <div className="w-full bg-white">
-                                <div className="mb-6">
-                                    <div className="p-4 bg-gray-100">
-                                        <h2 className="text-lg font-bold">Mas popular</h2>
-                                    </div>
-                                    <ul className="post-number">
-                                        <li className="border-b border-gray-100 hover:bg-gray-50">
-                                            <a className="text-lg font-bold px-6 py-3 flex flex-row items-center" href="#">Lorem ipsum dolor sit
-                                                amet consectetur adipisicing elit.</a>
-                                        </li>
-                                        <li className="border-b border-gray-100 hover:bg-gray-50">
-                                            <a className="text-lg font-bold px-6 py-3 flex flex-row items-center" href="#">Lorem ipsum dolor sit
-                                                amet consectetur adipisicing elit.</a>
-                                        </li>
-                                        <li className="border-b border-gray-100 hover:bg-gray-50">
-                                            <a className="text-lg font-bold px-6 py-3 flex flex-row items-center" href="#">Lorem ipsum dolor sit
-                                                amet consectetur adipisicing elit.</a>
-                                        </li>
-                                        <li className="border-b border-gray-100 hover:bg-gray-50">
-                                            <a className="text-lg font-bold px-6 py-3 flex flex-row items-center" href="#">Lorem ipsum dolor sit
-                                                amet consectetur adipisicing elit.</a>
-                                        </li>
-                                        <li className="border-b border-gray-100 hover:bg-gray-50">
-                                            <a className="text-lg font-bold px-6 py-3 flex flex-row items-center" href="#">Lorem ipsum dolor sit
-                                                amet consectetur adipisicing elit.</a>
-                                        </li>
-                                    </ul>
+                        <Popular data={`articulosPopularesOrganizacion/${id}`} />
+                    </div>
+                </div>
+            </div>
+            {/* block news */}
+            {dataTemas.filter((tema) => dataPosts.some((post) => post.tema === tema.id)).map((tema, index) => (
+                <div id={`${tema.id}-seccion`} className={`${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-50'} py-6`}>
+                    <div className="xl:container mx-auto px-3 sm:px-4 xl:px-2">
+                        <div className="flex flex-row flex-wrap">
+                            {/* Left */}
+                            <div className="flex-shrink max-w-full w-full overflow-hidden">
+                                <div className="w-full py-3">
+                                    <h2 className="text-gray-800 text-2xl font-bold">
+                                        <span className="inline-block h-5 border-l-3 border-red-600 mr-2"></span>{tema.nombre}
+                                    </h2>
                                 </div>
-                            </div>
-
-                            <div className="text-sm py-6 sticky">
-                                <div className="w-full text-center">
-                                    <a className="uppercase" href="#">Advertisement</a>
-                                    <a href="#">
-                                        <img className="mx-auto" src="src/img/ads/250.jpg" alt="advertisement area" />
-                                    </a>
+                                <div className="flex flex-row flex-wrap -mx-3">
+                                    {dataPosts.filter((post) => post.tema === tema.id).map((data) => (
+                                        <Card3 data={data} />
+                                    ))}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            {/* block news */}
-            <div className="bg-gray-50 py-6">
-                <div className="xl:container mx-auto px-3 sm:px-4 xl:px-2">
-                    <div className="flex flex-row flex-wrap">
-                        {/* Left */}
-                        <div className="flex-shrink max-w-full w-full   overflow-hidden">
-                            <div className="w-full py-3">
-                                <h2 className="text-gray-800 text-2xl font-bold">
-                                    <span className="inline-block h-5 border-l-3 border-red-600 mr-2"></span>Bloque 2
-                                </h2>
-                            </div>
-                            <div className="flex flex-row flex-wrap -mx-3">
-                                {["https://i.imgur.com/A3DgRy3.jpeg", "https://i.imgur.com/RSRKn76.jpeg", "https://i.imgur.com/q1PLiVI.jpeg", "https://i.imgur.com/06uS2oo.jpeg", "https://i.imgur.com/TovrGdi.jpeg", "https://i.imgur.com/1zqsyah.jpeg","https://i.imgur.com/4zJEe2x.jpeg","https://i.imgur.com/1ko2lbN.jpeg"
-                                ].map((data) => (
-                                    <Card3 data={data} />
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* block news */}
-            <div className="bg-gray-50 py-6">
-                <div className="xl:container mx-auto px-3 sm:px-4 xl:px-2">
-                    <div className="flex flex-row flex-wrap">
-                        {/* Left */}
-                        <div className="flex-shrink max-w-full w-full   overflow-hidden">
-                            <div className="w-full py-3">
-                                <h2 className="text-gray-800 text-2xl font-bold">
-                                    <span className="inline-block h-5 border-l-3 border-red-600 mr-2"></span>Bloque 3
-                                </h2>
-                            </div>
-                            <div className="flex flex-row flex-wrap -mx-3">
-                                {["https://i.imgur.com/sduLRvf.jpeg", "https://i.imgur.com/tXtwrPd.jpeg", "https://i.imgur.com/IVyU5Im.jpeg", "https://i.imgur.com/QguApMA.jpeg", "https://i.imgur.com/Xulubox.jpeg", "https://i.imgur.com/yxovJ4S.jpeg","https://i.imgur.com/fNXT1wc.jpeg","https://i.imgur.com/gjEZAJ7.jpeg"].map((data) => (
-                                    <Card3 data={data} />
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* block news */}
-            <div className="bg-gray-50 py-6">
-                <div className="xl:container mx-auto px-3 sm:px-4 xl:px-2">
-                    <div className="flex flex-row flex-wrap">
-                        {/* Left */}
-                        <div className="flex-shrink max-w-full w-full   overflow-hidden">
-                            <div className="w-full py-3">
-                                <h2 className="text-gray-800 text-2xl font-bold">
-                                    <span className="inline-block h-5 border-l-3 border-red-600 mr-2"></span>Bloque 4
-                                </h2>
-                            </div>
-                            <div className="flex flex-row flex-wrap -mx-3">
-                                {["https://i.imgur.com/dkV5le5.jpeg", "https://i.imgur.com/iNM4eIa.jpeg", "https://i.imgur.com/M50O5pj.jpeg", "https://i.imgur.com/TvY6Ynf.jpeg", "https://i.imgur.com/VRcVIoj.jpeg", "https://i.imgur.com/jedKbER.jpeg", "https://i.imgur.com/R4YgEev.jpeg", "https://i.imgur.com/LIAKlHY.jpeg"].map((data) => (
-                                    <Card3 data={data} />
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            ))
+            }
         </>
     );
 }

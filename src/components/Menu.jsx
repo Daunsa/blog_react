@@ -1,8 +1,63 @@
+import { api } from "../funciones/constGlobales";
+
 import {
-    Link, useNavigate
+    Link
 } from "react-router-dom";
 
+import axios from "axios";
+
+import { useState, useEffect } from "react";
+
 function Menu() {
+
+    const [dataTemas, setDataTemas] = useState([]);
+    const [dataPostsNg, setDataPostsNg] = useState([]);
+    const [dataPostsNt, setDataPostsNt] = useState([]);
+    const [dataPostsRa, setDataPostsRa] = useState([]);
+    const [menuState, setMenuState] = useState(false);
+    const empresas = ['ng', 'nt', 'ra'];
+
+    useEffect(() => {
+        inicio();
+    }, []);
+
+    const inicio = () => {
+        axios.get(`${api}/temas/`)
+            .then(res => {
+                setDataTemas(res.data);
+            })
+            .catch(error => {
+                console.error(error.response.status);
+            });
+
+        empresas.forEach(empresa => {
+            axios.get(`${api}/articulosMenu/${empresa}/`)
+                .then(res => {
+                    switch (empresa) {
+                        case 'ng':
+                            setDataPostsNg(res.data);
+                            break;
+                        case 'nt':
+                            setDataPostsNt(res.data);
+                            break;
+                        case 'ra':
+                            setDataPostsRa(res.data);
+                            break;
+                        default:
+                            break;
+                    }
+                })
+                .catch(error => {
+                    console.error(error.response.status);
+                });
+        });
+
+    };
+
+    const cambiarMenuState = () => {
+        setMenuState(!menuState);
+    }
+
     return (
         <>
             <header className="fixed top-0 left-0 right-0 z-50">
@@ -14,284 +69,113 @@ function Menu() {
                             <div className="flex flex-row">
                                 {/* nav menu */}
                                 <ul className="navbar hidden lg:flex lg:flex-row text-gray-400 text-sm items-center font-bold">
-                                    <li className="active relative border-l border-gray-800 hover:bg-gray-900">
+                                    <li key="inicio" className="relative border-l border-gray-800 hover:bg-gray-900">
                                         <Link className="block py-3 px-6 border-b-2 border-transparent" to="/">Inicio</Link>
                                     </li>
-                                    <li className="dropdown relative border-l border-gray-800 hover:bg-gray-900">
-                                        <Link className="block py-3 px-6 border-b-2 border-transparent" to="/pagina">National geograpihc español</Link>
+                                    <li key="ng" className="dropdown relative border-l border-gray-800 hover:bg-gray-900">
+                                        <Link className="block py-3 px-6 border-b-2 border-transparent" to="/revista/ng">National geograpihc español</Link>
 
                                         <ul
                                             className="dropdown-menu font-normal absolute left-0 right-auto top-full z-50 border-b-0 text-left bg-white text-gray-700 border border-gray-100"
                                             style={{ "minWidth": "12rem" }}>
-                                            <li className="subdropdown relative hover:bg-gray-50">
-                                                <Link className="block py-2 px-6 border-b border-gray-100" to="#">
-                                                    Itemcito
-                                                </Link>
+                                            {dataTemas.map(tema => {
+                                                const filteredPosts = dataPostsNg.filter(item => item.tema_id === tema.id);
+                                                return (
+                                                    <li key={`ng${tema.id}`} className="subdropdown relative hover:bg-gray-50">
+                                                        <Link className="block py-2 px-6 border-b border-gray-100" to={`/revista/ra`}>
+                                                            {tema.nombre}
+                                                        </Link>
 
-                                                {/*dropdown submenu*/}
-                                                <ul
-                                                    className="dropdown-menu absolute left-full right-auto transform top-full z-50 border-b-0 text-left -mt-10 ml-0 mr-0 bg-white border border-gray-100"
-                                                    style={{ "minWidth": "12rem" }}>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="index.html">Item 111</Link>
+                                                        {/* dropdown submenu */}
+                                                        {filteredPosts.length !== 0 &&
+                                                            <ul
+                                                                className="dropdown-menu absolute left-full right-auto transform top-full z-50 border-b-0 text-left -mt-10 ml-0 mr-0 bg-white border border-gray-100"
+                                                                style={{ "minWidth": "12rem" }}>
+                                                                {filteredPosts.map(item => (
+                                                                    <li key={`ng${tema.id}${item.id}`} className="relative hover:bg-gray-50">
+                                                                        <Link className="block py-2 px-6 border-b border-gray-100" to={`/post/${item.id}`}>{item.titulo}</Link>
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        }
                                                     </li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="index-2.html">Item 112</Link>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li className="subdropdown relative hover:bg-gray-50">
-                                                <Link className="block py-2 px-6 border-b border-gray-100" to="#">
-                                                    National geograpihc traveler
-                                                </Link>
-
-                                                {/*dropdown submenu*/}
-                                                <ul
-                                                    className="dropdown-menu absolute left-full right-auto transform top-full z-50 border-b-0 text-left -mt-10 ml-0 mr-0 bg-white border border-gray-100"
-                                                    style={{ "minWidth": "12rem" }}>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="404.html">Item 221</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="author.html">Item 222</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="category.html">Item 223</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="search.html">Item 224</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="page.html">Item 225</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="contact-us.html">Item 226</Link></li>
-                                                </ul>
-                                            </li>
-                                            <li className="subdropdown relative hover:bg-gray-50">
-                                                <Link className="block py-2 px-6 border-b border-gray-100" to="#">
-                                                    Item 33
-                                                </Link>
-
-                                                {/*dropdown submenu*/}
-                                                <ul
-                                                    className="dropdown-menu absolute left-full right-auto transform top-full z-50 border-b-0 text-left -mt-10 ml-0 mr-0 bg-white border border-gray-100"
-                                                    style={{ "minWidth": "12rem" }}>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="single.html">Item 331</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="single-2.html">Item 332</Link></li>
-                                                </ul>
-                                            </li>
-
-                                            <li className="subdropdown relative hover:bg-gray-50">
-                                                <Link className="block py-2 px-6 border-b border-gray-100" to="#">
-                                                    Item 44
-                                                </Link>
-
-                                                {/*dropdown submenu*/}
-                                                <ul
-                                                    className="dropdown-menu absolute left-full right-auto transform top-full z-50 border-b-0 text-left -mt-10 ml-0 mr-0 bg-white border border-gray-100"
-                                                    style={{ "minWidth": "12rem" }}>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="docs/index.html">Item 441</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="docs/components.html">Item 442</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="docs/credits.html">Item 443</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="docs/changelogs.html">Item 444</Link></li>
-                                                </ul>
-                                            </li>
+                                                );
+                                            })}
                                         </ul>
                                     </li>
-                                    <li className="dropdown relative border-l border-gray-800 hover:bg-gray-900">
-                                        <Link className="block py-3 px-6 border-b-2 border-transparent" to="/pagina">Nat Geo Travel</Link>
+                                    <li key="nt" className="dropdown relative border-l border-gray-800 hover:bg-gray-900">
+                                        <Link className="block py-3 px-6 border-b-2 border-transparent" to="/revista/nt">Nat Geo Travel</Link>
+                                        <ul
+                                            className="dropdown-menu font-normal absolute left-0 right-auto top-full z-50 border-b-0 text-left bg-white text-gray-700 border border-gray-100"
+                                            style={{ "minWidth": "12rem" }}>
+                                            {dataTemas.map(tema => {
+                                                const filteredPosts = dataPostsNt.filter(item => item.tema_id === tema.id);
+                                                return (
+                                                    <li key={`nt${tema.id}`} className="subdropdown relative hover:bg-gray-50">
+                                                        <Link className="block py-2 px-6 border-b border-gray-100" to={`/revista/ra`}>
+                                                            {tema.nombre}
+                                                        </Link>
+
+                                                        {/* dropdown submenu */}
+                                                        {filteredPosts.length !== 0 &&
+                                                            <ul
+                                                                className="dropdown-menu absolute left-full right-auto transform top-full z-50 border-b-0 text-left -mt-10 ml-0 mr-0 bg-white border border-gray-100"
+                                                                style={{ "minWidth": "12rem" }}>
+                                                                {filteredPosts.map(item => (
+                                                                    <li key={`nt${tema.id}${item.id}`} className="relative hover:bg-gray-50">
+                                                                        <Link className="block py-2 px-6 border-b border-gray-100" to={`/post/${item.id}`}>{item.titulo}</Link>
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        }
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
+                                    </li>
+                                    <li key="ra" className="dropdown relative border-l border-gray-800 hover:bg-gray-900">
+                                        <Link className="block py-3 px-6 border-b-2 border-transparent" to="/revista/ra">Rainforest Alliance</Link>
 
                                         <ul
                                             className="dropdown-menu font-normal absolute left-0 right-auto top-full z-50 border-b-0 text-left bg-white text-gray-700 border border-gray-100"
                                             style={{ "minWidth": "12rem" }}>
-                                            <li className="subdropdown relative hover:bg-gray-50">
-                                                <Link className="block py-2 px-6 border-b border-gray-100" to="#">
-                                                    Itemcito
-                                                </Link>
+                                            {dataTemas.map(tema => {
+                                                const filteredPosts = dataPostsRa.filter(item => item.tema_id === tema.id);
+                                                return (
+                                                    <li key={`ra${tema.id}`} className="subdropdown relative hover:bg-gray-50">
+                                                        <Link className="block py-2 px-6 border-b border-gray-100" to={`/revista/ra`}>
+                                                            {tema.nombre}
+                                                        </Link>
 
-                                                {/*dropdown submenu*/}
-                                                <ul
-                                                    className="dropdown-menu absolute left-full right-auto transform top-full z-50 border-b-0 text-left -mt-10 ml-0 mr-0 bg-white border border-gray-100"
-                                                    style={{ "minWidth": "12rem" }}>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="index.html">Item 111</Link>
+                                                        {/* dropdown submenu */}
+                                                        {filteredPosts.length !== 0 &&
+                                                            <ul
+                                                                className="dropdown-menu absolute left-full right-auto transform top-full z-50 border-b-0 text-left -mt-10 ml-0 mr-0 bg-white border border-gray-100"
+                                                                style={{ "minWidth": "12rem" }}>
+                                                                {filteredPosts.map(item => (
+                                                                    <li key={`ra${tema.id}${item.id}`} className="relative hover:bg-gray-50">
+                                                                        <Link className="block py-2 px-6 border-b border-gray-100" to={`/post/${item.id}`}>{item.titulo}</Link>
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        }
                                                     </li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="index-2.html">Item 112</Link>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li className="subdropdown relative hover:bg-gray-50">
-                                                <Link className="block py-2 px-6 border-b border-gray-100" to="#">
-                                                    National geograpihc traveler
-                                                </Link>
-
-                                                {/*dropdown submenu*/}
-                                                <ul
-                                                    className="dropdown-menu absolute left-full right-auto transform top-full z-50 border-b-0 text-left -mt-10 ml-0 mr-0 bg-white border border-gray-100"
-                                                    style={{ "minWidth": "12rem" }}>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="404.html">Item 221</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="author.html">Item 222</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="category.html">Item 223</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="search.html">Item 224</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="page.html">Item 225</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="contact-us.html">Item 226</Link></li>
-                                                </ul>
-                                            </li>
-                                            <li className="subdropdown relative hover:bg-gray-50">
-                                                <Link className="block py-2 px-6 border-b border-gray-100" to="#">
-                                                    Item 33
-                                                </Link>
-
-                                                {/*dropdown submenu*/}
-                                                <ul
-                                                    className="dropdown-menu absolute left-full right-auto transform top-full z-50 border-b-0 text-left -mt-10 ml-0 mr-0 bg-white border border-gray-100"
-                                                    style={{ "minWidth": "12rem" }}>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="single.html">Item 331</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="single-2.html">Item 332</Link></li>
-                                                </ul>
-                                            </li>
-
-                                            <li className="subdropdown relative hover:bg-gray-50">
-                                                <Link className="block py-2 px-6 border-b border-gray-100" to="#">
-                                                    Item 44
-                                                </Link>
-
-                                                {/*dropdown submenu*/}
-                                                <ul
-                                                    className="dropdown-menu absolute left-full right-auto transform top-full z-50 border-b-0 text-left -mt-10 ml-0 mr-0 bg-white border border-gray-100"
-                                                    style={{ "minWidth": "12rem" }}>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="docs/index.html">Item 441</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="docs/components.html">Item 442</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="docs/credits.html">Item 443</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="docs/changelogs.html">Item 444</Link></li>
-                                                </ul>
-                                            </li>
+                                                );
+                                            })}
                                         </ul>
                                     </li>
-                                    <li className="dropdown relative border-l border-gray-800 hover:bg-gray-900">
-                                        <Link className="block py-3 px-6 border-b-2 border-transparent" to="/pagina">Rainforest Alliance</Link>
-
-                                        <ul
-                                            className="dropdown-menu font-normal absolute left-0 right-auto top-full z-50 border-b-0 text-left bg-white text-gray-700 border border-gray-100"
-                                            style={{ "minWidth": "12rem" }}>
-                                            <li className="subdropdown relative hover:bg-gray-50">
-                                                <Link className="block py-2 px-6 border-b border-gray-100" to="#">
-                                                    Itemcito
-                                                </Link>
-
-                                                {/*dropdown submenu*/}
-                                                <ul
-                                                    className="dropdown-menu absolute left-full right-auto transform top-full z-50 border-b-0 text-left -mt-10 ml-0 mr-0 bg-white border border-gray-100"
-                                                    style={{ "minWidth": "12rem" }}>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="index.html">Item 111</Link>
-                                                    </li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="index-2.html">Item 112</Link>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li className="subdropdown relative hover:bg-gray-50">
-                                                <Link className="block py-2 px-6 border-b border-gray-100" to="#">
-                                                    National geograpihc traveler
-                                                </Link>
-
-                                                {/*dropdown submenu*/}
-                                                <ul
-                                                    className="dropdown-menu absolute left-full right-auto transform top-full z-50 border-b-0 text-left -mt-10 ml-0 mr-0 bg-white border border-gray-100"
-                                                    style={{ "minWidth": "12rem" }}>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="404.html">Item 221</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="author.html">Item 222</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="category.html">Item 223</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="search.html">Item 224</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="page.html">Item 225</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="contact-us.html">Item 226</Link></li>
-                                                </ul>
-                                            </li>
-                                            <li className="subdropdown relative hover:bg-gray-50">
-                                                <Link className="block py-2 px-6 border-b border-gray-100" to="#">
-                                                    Item 33
-                                                </Link>
-
-                                                {/*dropdown submenu*/}
-                                                <ul
-                                                    className="dropdown-menu absolute left-full right-auto transform top-full z-50 border-b-0 text-left -mt-10 ml-0 mr-0 bg-white border border-gray-100"
-                                                    style={{ "minWidth": "12rem" }}>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="single.html">Item 331</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="single-2.html">Item 332</Link></li>
-                                                </ul>
-                                            </li>
-
-                                            <li className="subdropdown relative hover:bg-gray-50">
-                                                <Link className="block py-2 px-6 border-b border-gray-100" to="#">
-                                                    Item 44
-                                                </Link>
-
-                                                {/*dropdown submenu*/}
-                                                <ul
-                                                    className="dropdown-menu absolute left-full right-auto transform top-full z-50 border-b-0 text-left -mt-10 ml-0 mr-0 bg-white border border-gray-100"
-                                                    style={{ "minWidth": "12rem" }}>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="docs/index.html">Item 441</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="docs/components.html">Item 442</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="docs/credits.html">Item 443</Link></li>
-                                                    <li className="relative hover:bg-gray-50">
-                                                        <Link className="block py-2 px-6 border-b border-gray-100" to="docs/changelogs.html">Item 444</Link></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                    <li key="sn" className="relative border-l border-gray-800 hover:bg-gray-900">
+                                        <Link className="block py-3 px-6 border-b-2 border-transparent" to="/sobreNosotros">Sobre nosotros</Link>
                                     </li>
-                                    <li className="relative border-l border-gray-800 hover:bg-gray-900">
-                                        <Link className="block py-3 px-6 border-b-2 border-transparent" to="/">Sobre nosotros</Link>
-                                    </li>
-                                    <li className="relative border-l border-gray-800 hover:bg-gray-900">
-                                        <Link className="block py-3 px-6 border-b-2 border-transparent" to="/">Contacnos</Link>
+                                    <li key="contac" className="relative border-l border-gray-800 hover:bg-gray-900">
+                                        <Link className="block py-3 px-6 border-b-2 border-transparent" to="/contactanos">Contactanos</Link>
                                     </li>
                                 </ul>
 
                                 {/* search form & mobile nav */}
                                 <div className="flex flex-row items-center text-gray-300">
                                     <div className="search-dropdown relative border-r lg:border-l border-gray-800 hover:bg-gray-900">
-                                        <button className="block py-3 px-6 border-b-2 border-transparent">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                                className="open bi bi-search" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
-                                                </path>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                                className="close bi bi-x-lg" viewBox="0 0 16 16">
-                                                <path fillRule="evenodd"
-                                                    d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z" />
-                                                <path fillRule="evenodd"
-                                                    d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z" />
-                                            </svg>
-                                        </button>
+                                        
                                         <div
                                             className="dropdown-menu absolute left-auto right-0 top-full z-50 text-left bg-white text-gray-700 border border-gray-100 mt-1 p-3"
                                             style={{ "minWidth": "15rem" }}>
@@ -316,7 +200,7 @@ function Menu() {
                                     </div>
 
                                     <div className="relative hover:bg-gray-800 block lg:hidden">
-                                        <button type="button" className="menu-mobile block py-3 px-6 border-b-2 border-transparent">
+                                        <button onClick={cambiarMenuState} type="button" className="menu-mobile block py-3 px-6 border-b-2 border-transparent">
                                             <span className="sr-only">Mobile menu</span>
                                             <svg className="inline-block h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -332,9 +216,9 @@ function Menu() {
                 </nav>
             </header>
             {/* Mobile menu */}
-            <div className="side-area fixed w-full h-full inset-0 z-50">
+            <div className={`side-area ${menuState ? 'show' : ''} fixed w-full h-full inset-0 z-50`}>
                 {/* bg open */}
-                <div className="back-menu fixed bg-gray-900 bg-opacity-70 w-full h-full inset-x-0 top-0">
+                <div onClick={cambiarMenuState} className="back-menu fixed bg-gray-900 bg-opacity-70 w-full h-full inset-x-0 top-0">
                     <div className="cursor-pointer text-white absolute right-64 p-2">
                         <svg className="bi bi-x" width="2rem" height="2rem" viewBox="0 0 16 16" fill="currentColor"
                             xmlns="http://www.w3.org/2000/svg">
@@ -348,82 +232,48 @@ function Menu() {
 
                 {/* Mobile navbar */}
                 <nav id="mobile-nav"
-                    className="side-menu flex flex-col right-0 w-64 fixed top-0 bg-white dark:bg-gray-800 h-full overflow-auto z-40">
+                    className={`side-menu ${menuState ? 'show' : ''} flex flex-col right-0 w-64 fixed top-0 bg-white h-full overflow-auto z-40`}>
                     <div className="mb-auto">
                         {/*navigation*/}
                         <nav className="relative flex flex-wrap">
                             <div className="text-center py-4 w-full font-bold border-b border-gray-100">PAGINA</div>
                             <ul id="side-menu" className="w-full float-none flex flex-col">
-                                <li className="relative">
-                                    <a href="#" className="block py-2 px-5 border-b border-gray-100 hover:bg-gray-50">Home</a>
+                                <li key="inicioM" className="relative">
+                                    <Link onClick={cambiarMenuState} to="/" className="block py-2 px-5 border-b border-gray-100 hover:bg-gray-50">Inicio</Link>
                                 </li>
 
                                 {/* dropdown with submenu*/}
-                                <li className="dropdown relative">
-                                    <a className="block py-2 px-5 border-b border-gray-100 hover:bg-gray-50" href="">
-                                        News
-                                    </a>
-
-                                    {/* dropdown menu */}
-                                    <ul
-                                        className="dropdown-menu block rounded rounded-t-none top-full z-50 ml-4 py-0.5 text-left bg-white dark:bg-gray-800 mb-4"
-                                        style={{ "minWidth": "12rem" }}>
-                                        {/*submenu*/}
-                                        <li className="subdropdown relative">
-                                            <a className="block w-full py-2 px-5 border-b border-gray-100 hover:bg-gray-50" href="">
-                                                Dropdown item
-                                            </a>
-
-                                            {/*dropdown submenu*/}
-                                            <ul
-                                                className="dropdown-menu block rounded rounded-t-none top-full z-50 ml-4 py-0.5 text-left bg-white dark:bg-gray-800"
-                                                style={{ "minWidth": "12rem" }}>
-                                                <li><a className="block w-full py-2 px-5 border-b border-gray-100 hover:bg-gray-50" href="#">Dropdown
-                                                    sub item</a></li>
-                                                <li><a className="block w-full py-2 px-5 border-b border-gray-100 hover:bg-gray-50" href="#">Dropdown
-                                                    sub item</a></li>
-                                                <li><a className="block w-full py-2 px-5 border-b border-gray-100 hover:bg-gray-50" href="#">Dropdown
-                                                    sub item</a></li>
-                                                <li><a className="block w-full py-2 px-5 border-b border-gray-100 hover:bg-gray-50" href="#">Dropdown
-                                                    sub item</a></li>
-                                            </ul>
-                                        </li>{/*end submenu*/}
-                                        <li className="relative"><a className="block w-full py-2 px-5 border-b border-gray-100 hover:bg-gray-50"
-                                            href="#">Dropdown item</a></li>
-                                        <li className="relative"><a className="block w-full py-2 px-5 border-b border-gray-100 hover:bg-gray-50"
-                                            href="#">Dropdown item</a></li>
-                                    </ul>
+                                <li key="ngM" className="dropdown relative">
+                                    <Link onClick={cambiarMenuState} className="block py-2 px-5 border-b border-gray-100 hover:bg-gray-50" to="/revista/ng">
+                                        National geograpihc español
+                                    </Link>
                                 </li>
-
-                                <li className="relative">
-                                    <a href="#" className="block py-2 px-5 border-b border-gray-100 hover:bg-gray-50">Sport</a>
+                                <li key="ntM" className="dropdown relative">
+                                    <Link onClick={cambiarMenuState} className="block py-2 px-5 border-b border-gray-100 hover:bg-gray-50" to="/revista/nt">
+                                        Nat Geo Travel
+                                    </Link>
                                 </li>
-
-                                <li className="relative">
-                                    <a href="#" className="block py-2 px-5 border-b border-gray-100 hover:bg-gray-50">Travel</a>
+                                <li key="raM" className="dropdown relative">
+                                    <Link onClick={cambiarMenuState} className="block py-2 px-5 border-b border-gray-100 hover:bg-gray-50" to="/revista/ra">
+                                        Rainforest Alliance
+                                    </Link>
                                 </li>
-
-                                <li className="relative">
-                                    <a href="#" className="block py-2 px-5 border-b border-gray-100 hover:bg-gray-50">Techno</a>
+                                <li key="snM" className="dropdown relative">
+                                    <Link onClick={cambiarMenuState} className="block py-2 px-5 border-b border-gray-100 hover:bg-gray-50" to="/sobreNosotros">
+                                        Sobre Nosotros
+                                    </Link>
                                 </li>
-
-                                <li className="relative">
-                                    <a href="#" className="block py-2 px-5 border-b border-gray-100 hover:bg-gray-50">Worklife</a>
-                                </li>
-
-                                <li className="relative">
-                                    <a href="#" className="block py-2 px-5 border-b border-gray-100 hover:bg-gray-50">Future</a>
-                                </li>
-
-                                <li className="relative">
-                                    <a href="#" className="block py-2 px-5 border-b border-gray-100 hover:bg-gray-50">More</a>
+                                <li key="contacM" className="dropdown relative">
+                                    <Link onClick={cambiarMenuState} className="block py-2 px-5 border-b border-gray-100 hover:bg-gray-50" to="/contactanos">
+                                        Contactanos
+                                    </Link>
                                 </li>
                             </ul>
                         </nav>
                     </div>
                     {/* copyright */}
                     <div className="py-4 px-6 text-sm mt-6 text-center">
-                        <p>Copyright <a href="#">Pagina</a> - All right reserved</p>
+                        <p>Copyright <Link to="#">Pagina</Link> - All right reserved</p>
                     </div>
                 </nav>
             </div>

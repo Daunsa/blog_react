@@ -15,84 +15,74 @@ import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 
 import { ViewMode } from '@react-pdf-viewer/core';
 
-function MyPdfComponent() {
+import { api } from '../funciones/constGlobales';
+
+function MyPdfComponent(props) {
+
   // creating new plugin instance
-  const defaultLayoutPluginInstance = defaultLayoutPlugin();
+  const renderToolbar = (Toolbar) => (
+    <Toolbar>
+      {(props) => {
+        const {
+          CurrentPageInput,
+          GoToNextPage,
+          GoToPreviousPage,
+          NumberOfPages,
+          Zoom,
+        } = props;
+        return (
+          <div className="toolbar flex items-center justify-center">
+            <div className="mr-4">
+              <GoToPreviousPage />
+            </div>
+            <div className="mr-4">
+              <div className="rpv-page-number-input" style={{ width: "50px" }}>
+                <CurrentPageInput />
+              </div>
+            </div>
+            <div className="mr-4">
+              <NumberOfPages />
+            </div>
+            <div className="mr-4">
+              <GoToNextPage />
+            </div>
+            <div className="mr-4">
+              <Zoom />
+            </div>
+          </div>
+        );
+      }}
+    </Toolbar>
+
+  );
+
+  const defaultLayoutPluginInstance = defaultLayoutPlugin({
+    sidebarTabs: (defaultTabs) => [],
+    renderToolbar,
+  });
   const scrollModePluginInstance = scrollModePlugin();
 
-  // pdf file onChange state
-  const [pdfFile, setPdfFile] = useState(null);
-
-  // pdf file error state
-  const [pdfError, setPdfError] = useState('');
-
-
-  // handle file onChange event
-  const allowedFiles = ['application/pdf'];
-  const handleFile = (e) => {
-    let selectedFile = e.target.files[0];
-    // console.log(selectedFile.type);
-    if (selectedFile) {
-      if (selectedFile && allowedFiles.includes(selectedFile.type)) {
-        let reader = new FileReader();
-        reader.readAsDataURL(selectedFile);
-        reader.onloadend = (e) => {
-          setPdfError('');
-          setPdfFile(e.target.result);
-        }
-      }
-      else {
-        setPdfError('Not a valid pdf: Please select only PDF');
-        setPdfFile('');
-      }
-    }
-    else {
-      console.log('please select a PDF');
-    }
-  }
 
   return (
     <div className="container">
-
-      {/* Upload PDF */}
-      <form>
-
-        <label><h5>Upload PDF</h5></label>
-        <br></br>
-
-        <input type='file' className="form-control"
-          onChange={handleFile}></input>
-
-        {/* we will display error message in case user select some file
-      other than pdf */}
-        {pdfError && <span className='text-danger'>{pdfError}</span>}
-
-      </form>
-
-      {/* View PDF */}
-      <h5>View PDF</h5>
       <div className="viewer">
 
         {/* render this if we have a pdf file */}
-        {pdfFile && (
-          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.3.122/build/pdf.worker.min.js">
-            <div style={{ width: '100%', height: '750px' }}>
-              <Viewer fileUrl={pdfFile}
-                theme={{
-                  theme: 'dark',
-                }}
-                defaultScale={0.8}
-                viewMode='DualPage'
-                scrollMode="Page"
+        <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.3.122/build/pdf.worker.min.js">
+          <div style={{ width: '100%', height: '750px' }}>
+            <Viewer fileUrl={`${api}${props.data}`}
+              theme={{
+                theme: 'white',
+              }}
+              defaultScale={0.8}
+              viewMode='DualPage'
+              scrollMode="Page"
 
-                plugins={[defaultLayoutPluginInstance, scrollModePluginInstance]}></Viewer>
-            </div>
-          </Worker>
-        )}
-
-        {/* render this if we have pdfFile state null   */}
-        {!pdfFile && <>No file is selected yet</>}
-
+              plugins={[defaultLayoutPluginInstance, scrollModePluginInstance]}
+            >
+            </Viewer>
+          </div>
+        </Worker>
       </div>
 
     </div>
