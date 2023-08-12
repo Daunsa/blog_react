@@ -1,16 +1,47 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { api } from "../funciones/constGlobales";
+
 function HojaDeVida() {
+
+    const [data, setData] = useState({
+        "imagen_personal": "https://i.imgur.com/VPt4cmU.jpeg",
+        "mision": "Lorem ipsum dolor sit amet consectetur adipisicing elit. The point of using Lorem Ipsum.In the first place we have granted to God, and by this our present charter confirmed for us and our heirs forever that the English Church shall be free, and shall have her rights entire, and her liberties inviolate; and we will that it be thus observed; which is apparent from\r\n\r\nLorem ipsum dolor sit amet consectetur adipisicing elit. The point of using Lorem Ipsum.In the first place we have granted to",
+        "descripcion_personal": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis quo iure vitae provident voluptas nihil soluta sit, in totam esse aliquid eveniet impedit harum accusantium a, nam quidem consectetur corporis.",
+        "informacion_hoja_de_vida": {
+            "item1": "Area de inicio",
+            "item2": "N articulos publicados",
+            "item3": "N seguidores"
+        }
+    });
+
+    useEffect(() => {
+        inicio();
+    }, []);
+
+    const inicio = () => {
+        /*axios.get(`${api}/hojaDeVida/`)
+            .then(res => {
+                setData(res.data);
+                console.log("hoja de vida");
+                console.log(res.data);
+            })
+            .catch(error => {
+                console.error(error.response.status);
+            });*/
+    };
+
+
     return (
         <>
             <div className="2xl:container 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4">
                 <div className="flex lg:flex-row flex-col lg:gap-8 sm:gap-10 gap-12">
                     <div className="w-full lg:w-6/12">
-                        <h2 className="w-full font-bold lg:text-4xl text-3xl lg:leading-10 leading-9">Erik Pinedo</h2>
-                        <p className="font-normal text-base leading-6 text-gray-600 mt-6">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis quo iure vitae provident voluptas nihil soluta sit, in totam esse aliquid eveniet impedit harum accusantium a, nam quidem consectetur corporis.</p>
+                        <h2 className="w-full font-bold lg:text-4xl text-3xl lg:leading-10 leading-9">Daniel Tapia</h2>
+                        <p className="font-normal text-base leading-6 text-gray-600 mt-6">{data.descripcion_personal}</p>
                     </div>
                     <div className="w-full lg:w-6/12">
-                        <img className="lg:block hidden w-full" src="https://i.ibb.co/RjNH7QB/Rectangle-122-1.png" alt="people discussing on board" />
-                        <img className="lg:hidden sm:block hidden w-full" src="https://i.ibb.co/16fPqrg/Rectangle-122-2.png" alt="people discussing on board" />
-                        <img className="sm:hidden block w-full" src="https://i.ibb.co/Jxhpxh6/Rectangle-122.png" alt="people discussing on board" />
+                        <img className="w-full h-96 object-cover" src={'daniel.jpg'} alt="Daniel Tapia foto" />
                     </div>
                 </div>
 
@@ -45,16 +76,13 @@ function HojaDeVida() {
                 </div>
                 <div className="grid sm:grid-cols-3 grid-cols-2 sm:gap-8 gap-4">
                     <div>
-                        <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 mt-6">Area de inicio</p>
-                        <p className="font-normal text-base leading-6 text-gray-600 mt-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 mt-6">{data.informacion_hoja_de_vida.item1}</p>
                     </div>
                     <div>
-                        <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 mt-6">N articulos publicados</p>
-                        <p className="font-normal text-base leading-6 text-gray-600 mt-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 mt-6">{data.informacion_hoja_de_vida.item2}</p>
                     </div>
                     <div className="sm:block hidden">
-                        <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 mt-6">N seguidores</p>
-                        <p className="font-normal text-base leading-6 text-gray-600 mt-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 mt-6">{data.informacion_hoja_de_vida.item3}</p>
                     </div>
                 </div>
                 <div className="sm:hidden block relative mt-8">
@@ -71,16 +99,14 @@ function HojaDeVida() {
                 </div>
                 <div className="sm:hidden grid sm:grid-cols-3 grid-cols-2 sm:gap-8 gap-4">
                     <div>
-                        <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 mt-6">400k User</p>
-                        <p className="font-normal text-base leading-6 text-gray-600 mt-6">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        <p className="font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 text-gray-800 mt-6">{data.informacion_hoja_de_vida.item3}</p>
                     </div>
                 </div>
 
                 <div className="flex lg:flex-row flex-col md:gap-14 gap-16 justify-between lg:mt-20 mt-16">
                     <div className="w-full lg:w-6/12">
                         <h2 className="font-bold lg:text-4xl text-3xl lg:leading-9 leading-7 text-gray-800">Mi mision</h2>
-                        <p className="font-normal text-base leading-6 text-gray-600 mt-6 w-full lg:w-10/12 xl:w-9/12">Lorem ipsum dolor sit amet consectetur adipisicing elit. The point of using Lorem Ipsum.In the first place we have granted to God, and by this our present charter confirmed for us and our heirs forever that the English Church shall be free, and shall have her rights entire, and her liberties inviolate; and we will that it be thus observed; which is apparent from</p>
-                        <p className="font-normal text-base leading-6 text-gray-600 w-full lg:w-10/12 xl:w-9/12 mt-10">Lorem ipsum dolor sit amet consectetur adipisicing elit. The point of using Lorem Ipsum.In the first place we have granted to God, and by this our present charter confirmed for us and our heirs forever that the English Church shall be free, and shall have her rights entire, and her liberties inviolate; and we will that it be thus observed; which is apparent from</p>
+                        <p className="font-normal text-base leading-6 text-gray-600 mt-6 w-full lg:w-10/12 xl:w-9/12">{data.mision}</p>
                     </div>
                     <div className="w-full lg:w-6/12">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 lg:gap-12 gap-10">

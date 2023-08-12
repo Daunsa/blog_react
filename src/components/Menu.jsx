@@ -10,10 +10,156 @@ import { useState, useEffect } from "react";
 
 function Menu() {
 
-    const [dataTemas, setDataTemas] = useState([]);
-    const [dataPostsNg, setDataPostsNg] = useState([]);
-    const [dataPostsNt, setDataPostsNt] = useState([]);
-    const [dataPostsRa, setDataPostsRa] = useState([]);
+    const [dataTemas, setDataTemas] = useState([
+        {
+            "id": 1,
+            "nombre": "Vida marina"
+        },
+        {
+            "id": 2,
+            "nombre": "Microbiologia"
+        },
+        {
+            "id": 3,
+            "nombre": "Ecosistema"
+        }
+    ]);
+    const [dataPostsNg, setDataPostsNg] = useState([
+        {
+            "id": 4,
+            "titulo": "prueba 4",
+            "tema_id": 1
+        },
+        {
+            "id": 15,
+            "titulo": "prueba 15",
+            "tema_id": 1
+        },
+        {
+            "id": 9,
+            "titulo": "prueba 9",
+            "tema_id": 2
+        }
+    ]);
+    const [dataPostsNt, setDataPostsNt] = useState([
+        {
+            "id": 2,
+            "titulo": "prueba 2",
+            "tema_id": 1
+        },
+        {
+            "id": 26,
+            "titulo": "prueba 26",
+            "tema_id": 2
+        }
+    ]);
+    const [dataPostsRa, setDataPostsRa] = useState([
+        {
+            "id": 5,
+            "titulo": "prueba 5",
+            "tema_id": 1
+        },
+        {
+            "id": 10,
+            "titulo": "prueba 10",
+            "tema_id": 1
+        },
+        {
+            "id": 11,
+            "titulo": "prueba 11",
+            "tema_id": 1
+        },
+        {
+            "id": 12,
+            "titulo": "prueba 12",
+            "tema_id": 1
+        },
+        {
+            "id": 13,
+            "titulo": "prueba 13",
+            "tema_id": 1
+        },
+        {
+            "id": 14,
+            "titulo": "prueba 14",
+            "tema_id": 1
+        },
+        {
+            "id": 1,
+            "titulo": "prueba 1",
+            "tema_id": 2
+        },
+        {
+            "id": 3,
+            "titulo": "prueba 3",
+            "tema_id": 2
+        },
+        {
+            "id": 6,
+            "titulo": "prueba 6",
+            "tema_id": 2
+        },
+        {
+            "id": 7,
+            "titulo": "prueba 7",
+            "tema_id": 2
+        },
+        {
+            "id": 8,
+            "titulo": "prueba 8",
+            "tema_id": 2
+        },
+        {
+            "id": 16,
+            "titulo": "prueba 16",
+            "tema_id": 2
+        },
+        {
+            "id": 17,
+            "titulo": "prueba 17",
+            "tema_id": 2
+        },
+        {
+            "id": 18,
+            "titulo": "prueba 18",
+            "tema_id": 2
+        },
+        {
+            "id": 19,
+            "titulo": "prueba 19",
+            "tema_id": 2
+        },
+        {
+            "id": 20,
+            "titulo": "prueba 20",
+            "tema_id": 3
+        },
+        {
+            "id": 21,
+            "titulo": "prueba 21",
+            "tema_id": 3
+        },
+        {
+            "id": 22,
+            "titulo": "prueba 22",
+            "tema_id": 3
+        },
+        {
+            "id": 23,
+            "titulo": "prueba 23",
+            "tema_id": 3
+        },
+        {
+            "id": 24,
+            "titulo": "prueba 24",
+            "tema_id": 3
+        },
+        {
+            "id": 25,
+            "titulo": "prueba 25",
+            "tema_id": 3
+        }
+    ]);
     const [menuState, setMenuState] = useState(false);
     const empresas = ['ng', 'nt', 'ra'];
 
@@ -22,9 +168,11 @@ function Menu() {
     }, []);
 
     const inicio = () => {
-        axios.get(`${api}/temas/`)
+        /*axios.get(`${api}/temas/`)
             .then(res => {
                 setDataTemas(res.data);
+                console.log("menu");
+                console.log(res.data);
             })
             .catch(error => {
                 console.error(error.response.status);
@@ -35,12 +183,18 @@ function Menu() {
                 .then(res => {
                     switch (empresa) {
                         case 'ng':
+                            console.log("menu2 ng");
+                            console.log(res.data);
                             setDataPostsNg(res.data);
                             break;
                         case 'nt':
+                            console.log("menu2 nt");
+                            console.log(res.data);
                             setDataPostsNt(res.data);
                             break;
                         case 'ra':
+                            console.log("menu2 ra");
+                            console.log(res.data);
                             setDataPostsRa(res.data);
                             break;
                         default:
@@ -50,7 +204,7 @@ function Menu() {
                 .catch(error => {
                     console.error(error.response.status);
                 });
-        });
+        });*/
 
     };
 

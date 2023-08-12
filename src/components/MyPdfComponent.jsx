@@ -70,7 +70,7 @@ function MyPdfComponent(props) {
         {/* render this if we have a pdf file */}
         <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.3.122/build/pdf.worker.min.js">
           <div style={{ width: '100%', height: '750px' }}>
-            <Viewer fileUrl={`${api}${props.data}`}
+            <Viewer fileUrl={`https://core.ac.uk/download/pdf/52479411.pdf`}
               theme={{
                 theme: 'white',
               }}

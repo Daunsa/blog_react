@@ -12,8 +12,14 @@ function Pagina() {
 
     const { id } = useParams();
 
+    const dataPaginas = [{'imagen':"https://i.imgur.com/efGBeIF.png", 'titulo':['National', 'Geographic'], 'descripcion':"Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem, minima. Cumque, necessitatibus distinctio earum eum possimus ipsam facere, quaerat recusandae hic, excepturi aperiam aut temporibus laborum aliquid assumenda consequatur sapiente."},
+                        {'imagen':"https://i.imgur.com/GqqWzJS.png", 'titulo':['Nat Geo', 'Travel'], 'descripcion':"Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem, minima. Cumque, necessitatibus distinctio earum eum possimus ipsam facere, quaerat recusandae hic, excepturi aperiam aut temporibus laborum aliquid assumenda consequatur sapiente."},
+                        {'imagen':"https://i.imgur.com/sXuBdnr.png", 'titulo':['Rainforest', 'Alliance'], 'descripcion':"Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem, minima. Cumque, necessitatibus distinctio earum eum possimus ipsam facere, quaerat recusandae hic, excepturi aperiam aut temporibus laborum aliquid assumenda consequatur sapiente."}
+                        ];
+
     const [dataPosts, setDataPosts] = useState([]);
     const [dataTemas, setDataTemas] = useState([]);
+    const [dataPagina, setDataPagina] = useState({'imagen':"", 'titulo':['', ''], 'descripcion':""});
 
 
     useEffect(() => {
@@ -24,6 +30,8 @@ function Pagina() {
         axios.get(`${api}/articulosOrganizacion/${id}/`)
             .then(res => {
                 setDataPosts(res.data);
+                console.log("pagina1");
+                console.log(res.data);
             })
             .catch(error => {
                 console.error(error.response.status);
@@ -31,10 +39,23 @@ function Pagina() {
         axios.get(`${api}/temas/`)
             .then(res => {
                 setDataTemas(res.data);
+                console.log("pagina 2");
+                console.log(res.data);
             })
             .catch(error => {
                 console.error(error.response.status);
             });
+        switch (id) {
+            case 'ng':
+                setDataPagina(dataPaginas[0])
+                break;
+            case 'nt':
+                setDataPagina(dataPaginas[1])
+                break;
+            case 'ra':
+                setDataPagina(dataPaginas[2])
+                break;
+        }
     };
 
 
@@ -43,16 +64,16 @@ function Pagina() {
             <div className="flex xl:px-20 px-8 py-20 2xl:mx-auto 2xl:container relative z-40">
                 <div className="mt-14 md:flex">
                     <div className="relative lg:w-1/2 sm:w-96 xl:h-96 h-80">
-                        <img src="https://i.imgur.com/efGBeIF.png" alt="image of profile" className="w-full h-full flex-shrink-0 object-fit" />
+                        <img src={dataPagina.imagen} alt="image of profile" className="w-full h-full flex-shrink-0 object-fit" />
                     </div>
                     <div className="md:w-1/3 lg:w-1/3 xl:ml-32 md:ml-20 md:mt-0 mt-4 flex flex-col justify-between">
                         <div>
                             <h1 className="text-5xl font-bold xl:block hidden leading-tight text-gray-800">
-                                National
+                                {dataPagina.titulo[0]}
                                 <br />
-                                Geographic
+                                {dataPagina.titulo[1]}
                             </h1>
-                            <p className="text-base font-medium leading-6 mt-4 text-gray-600">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem, minima. Cumque, necessitatibus distinctio earum eum possimus ipsam facere, quaerat recusandae hic, excepturi aperiam aut temporibus laborum aliquid assumenda consequatur sapiente.</p>
+                            <p className="text-base font-medium leading-6 mt-4 text-gray-600">{dataPagina.descripcion}</p>
                         </div>
                     </div>
                 </div>

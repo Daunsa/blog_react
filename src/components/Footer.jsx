@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Footer() {
     return (
         <>
@@ -15,7 +17,7 @@ function Footer() {
                                 <ul className="space-x-3 mt-6 mb-6 Lg:mb-0">
                                     {/*facebook*/}
                                     <li className="inline-block">
-                                        <a target="_blank" className="hover:text-gray-100" rel="noopener noreferrer" href="https://facebook.com"
+                                        <a target="_blank" className="hover:text-gray-100" rel="noopener noreferrer" href="https://www.facebook.com/erickpinedojournalism/"
                                             title="Facebook">
                                             {/* <i className="fab fa-facebook fa-2x"></i> */}
                                             <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" viewBox="0 0 512 512">
@@ -51,7 +53,7 @@ function Footer() {
                                     </li>
                                     {/*instagram*/}
                                     <li className="inline-block">
-                                        <a target="_blank" className="hover:text-gray-100" rel="noopener noreferrer" href="https://instagram.com"
+                                        <a target="_blank" className="hover:text-gray-100" rel="noopener noreferrer" href="https://www.instagram.com/erickpinedo_journalism/"
                                             title="Instagram">
                                             {/* <i className="fab fa-instagram fa-2x"></i> */}
                                             <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" viewBox="0 0 512 512">
@@ -71,40 +73,23 @@ function Footer() {
                             <div className="flex-shrink max-w-full w-full lg:w-3/5 px-3">
                                 <div className="flex flex-wrap flex-row">
                                     <div className="flex-shrink max-w-full w-1/2 md:w-1/4 mb-6 lg:mb-0">
-                                        <h4 className="text-base leading-normal mb-3 uppercase text-gray-100">Product</h4>
+                                        <h4 className="text-base leading-normal mb-3 uppercase text-gray-100">Paginas</h4>
                                         <ul>
-                                            <li className="py-1 hover:text-white"><a href="#">Landing</a></li>
-                                            <li className="py-1 hover:text-white"><a href="#">Pages</a></li>
-                                            <li className="py-1 hover:text-white"><a href="#">Sections</a></li>
-                                            <li className="py-1 hover:text-white"><a href="#">Sign Up</a></li>
-                                            <li className="py-1 hover:text-white"><a href="#">Login</a></li>
+                                            <li className="py-1 hover:text-white"><Link to="/">Inicio</Link></li>
+                                            <li className="py-1 hover:text-white"><Link to="/revista/ng">National Geographic</Link></li>
+                                            <li className="py-1 hover:text-white"><Link to="/revista/nt">Nat Geo Travel</Link></li>
+                                            <li className="py-1 hover:text-white"><Link to="/revista/ra">Rainforest Alliance</Link></li>
+                                            <li className="py-1 hover:text-white"><Link to="/sobreNosotros">Sobre nosotros</Link></li>
+                                            <li className="py-1 hover:text-white"><Link to="/contactanos">Contactanos</Link></li>
                                         </ul>
                                     </div>
                                     <div className="flex-shrink max-w-full w-1/2 md:w-1/4 mb-6 lg:mb-0">
-                                        <h4 className="text-base leading-normal mb-3 uppercase text-gray-100">Support</h4>
+                                        <h4 className="text-base leading-normal mb-3 uppercase text-gray-100">Contactanos</h4>
                                         <ul>
                                             <li className="py-1 hover:text-white"><a href="#">Documentation</a></li>
                                             <li className="py-1 hover:text-white"><a href="#">Changelog</a></li>
                                             <li className="py-1 hover:text-white"><a href="#">Tools</a></li>
                                             <li className="py-1 hover:text-white"><a href="#">Icons</a></li>
-                                        </ul>
-                                    </div>
-                                    <div className="flex-shrink max-w-full w-1/2 md:w-1/4 mb-6 lg:mb-0">
-                                        <h4 className="text-base leading-normal mb-3 uppercase text-gray-100">Includes</h4>
-                                        <ul>
-                                            <li className="py-1 hover:text-white"><a href="#">Utilities</a></li>
-                                            <li className="py-1 hover:text-white"><a href="#">Components</a></li>
-                                            <li className="py-1 hover:text-white"><a href="#">Example code</a></li>
-                                            <li className="py-1 hover:text-white"><a href="#">Updates</a></li>
-                                        </ul>
-                                    </div>
-                                    <div className="flex-shrink max-w-full w-1/2 md:w-1/4 mb-6 lg:mb-0">
-                                        <h4 className="text-base leading-normal mb-3 uppercase text-gray-100">Legal</h4>
-                                        <ul>
-                                            <li className="py-1 hover:text-white hover:text-white"><a href="#">Privacy Policy</a></li>
-                                            <li className="py-1 hover:text-white"><a href="#">Terms of Use</a></li>
-                                            <li className="py-1 hover:text-white"><a href="#">License</a></li>
-                                            <li className="py-1 hover:text-white"><a href="#">GDPR</a></li>
                                         </ul>
                                     </div>
                                 </div>

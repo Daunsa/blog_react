@@ -11,13 +11,15 @@ function Instagram() {
     },[]);
 
     const inicio = () => {
-        axios.get(`https://graph.instagram.com/v12.0/5952335161548643/media?fields=id,caption,media_type,media_url,thumbnail_url,permalink&limit=14&access_token=${token}`)
+        /*axios.get(`https://graph.instagram.com/v12.0/5952335161548643/media?fields=id,caption,media_type,media_url,thumbnail_url,permalink&limit=14&access_token=${token}`)
             .then(res => {
                 setDataInstagram(res.data.data);
+                console.log("instagram");
+                console.log(res.data);
             })
             .catch(error => {
                 console.error(error.response.status);
-            });
+            });*/
     };
 
     const abrirPublicacion = (url) => {
@@ -39,7 +41,7 @@ function Instagram() {
         <>
             <div className="xl:w-1/2 w-11/12">
                 <h1 tabIndex={0} className="text-6xl font-bold 2xl:leading-10 leading-0 text-center text-gray-800">
-                    Erik Pinedo
+                    Daniel Tapia
                 </h1>
                 <h2 role="contentinfo" tabIndex={0} className="text-base leading-normal text-center text-gray-600 mt-5">
                     JOURNALISM, MEDIO AMBIENTE, CIENCIA Y EXPLORACION
@@ -49,43 +51,43 @@ function Instagram() {
                 <div className="mt-24">
                     <div className="flex items-end">
                         <div onClick={() => abrirPublicacion(dataInstagram[0]?.permalink)} className="relative group mr-6">
-                            <img alt={`instagram-${dataInstagram[0]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[0]?.permalink)} src={dataInstagram[0]?.media_type === 'VIDEO' ? dataInstagram[0]?.thumbnail_url : dataInstagram[0]?.media_url} className="w-20 h-20 rounded-lg object-cover" />
+                            <img alt={`instagram-${dataInstagram[0]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[0]?.permalink)} src={'https://i.imgur.com/UNmsjGS.jpeg'} className="w-20 h-20 rounded-lg object-cover" />
                             {instagram}
                         </div>
                         <div onClick={() => abrirPublicacion(dataInstagram[1]?.permalink)} className="relative group rounded-lg">
-                            <img alt={`instagram-${dataInstagram[1]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[1]?.permalink)} src={dataInstagram[1]?.media_type === 'VIDEO' ? dataInstagram[1]?.thumbnail_url : dataInstagram[1]?.media_url} className="w-48 h-36 rounded-lg object-cover" />
+                            <img alt={`instagram-${dataInstagram[1]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[1]?.permalink)} src={'https://i.imgur.com/UNmsjGS.jpeg'} className="w-48 h-36 rounded-lg object-cover" />
                             {instagram}
                         </div>
                     </div>
                     <div className="flex items-center justify-end my-6">
                         <div onClick={() => abrirPublicacion(dataInstagram[2]?.permalink)} className="relative group">
-                            <img alt={`instagram-${dataInstagram[2]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[2]?.permalink)} src={dataInstagram[2]?.media_type === 'VIDEO' ? dataInstagram[2]?.thumbnail_url : dataInstagram[2]?.media_url} className="w-72 h-72 rounded-lg object-cover" />
+                            <img alt={`instagram-${dataInstagram[2]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[2]?.permalink)} src={'https://i.imgur.com/UNmsjGS.jpeg'} className="w-72 h-72 rounded-lg object-cover" />
                             {instagram}
                         </div>
                     </div>
                     <div className="flex items-start rounded-lg">
                         <div onClick={() => abrirPublicacion(dataInstagram[3]?.permalink)} className="relative group">
-                            <img alt={`instagram-${dataInstagram[3]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[3]?.permalink)} src={dataInstagram[3]?.media_type === 'VIDEO' ? dataInstagram[3]?.thumbnail_url : dataInstagram[3]?.media_url} className="w-48 h-48 rounded-lg object-cover" />
+                            <img alt={`instagram-${dataInstagram[3]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[3]?.permalink)} src={'https://i.imgur.com/UNmsjGS.jpeg'} className="w-48 h-48 rounded-lg object-cover" />
                             {instagram}
                         </div>
                         <div onClick={() => abrirPublicacion(dataInstagram[4]?.permalink)} className="relative group rounded-lg ml-6 flex-shrink-0 object-cover object-fit">
-                            <img alt={`instagram-${dataInstagram[4]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[4]?.permalink)} src={dataInstagram[4]?.media_type === 'VIDEO' ? dataInstagram[4]?.thumbnail_url : dataInstagram[4]?.media_url} className="w-20 h-20 rounded-lg object-cover" />
+                            <img alt={`instagram-${dataInstagram[4]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[4]?.permalink)} src={'https://i.imgur.com/UNmsjGS.jpeg'} className="w-20 h-20 rounded-lg object-cover" />
                             {instagram}
                         </div>
                     </div>
                 </div>
                 <div className="ml-6 mt-32 rounded-lg">
                     <div onClick={() => abrirPublicacion(dataInstagram[5]?.permalink)} className="relative group mr-2">
-                        <img alt={`instagram-${dataInstagram[5]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[5]?.permalink)} src={dataInstagram[5]?.media_type === 'VIDEO' ? dataInstagram[5]?.thumbnail_url : dataInstagram[5]?.media_url} className="w-72 h-80 rounded-lg object-cover" />
+                        <img alt={`instagram-${dataInstagram[5]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[5]?.permalink)} src={'https://i.imgur.com/UNmsjGS.jpeg'} className="w-72 h-80 rounded-lg object-cover" />
                         {instagram}
                     </div>
                     <div className="flex items-start mt-6">
                         <div onClick={() => abrirPublicacion(dataInstagram[6]?.permalink)} className="relative group rounded-lg">
-                            <img alt={`instagram-${dataInstagram[6]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[6]?.permalink)} src={dataInstagram[6]?.media_type === 'VIDEO' ? dataInstagram[6]?.thumbnail_url : dataInstagram[6]?.media_url} className="w-48 h-48 rounded-lg object-cover" />
+                            <img alt={`instagram-${dataInstagram[6]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[6]?.permalink)} src={'https://i.imgur.com/UNmsjGS.jpeg'} className="w-48 h-48 rounded-lg object-cover" />
                             {instagram}
                         </div>
                         <div onClick={() => abrirPublicacion(dataInstagram[7]?.permalink)} className="relative group rounded-lg ml-6 object-cover object-fit">
-                            <img alt={`instagram-${dataInstagram[7]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[7]?.permalink)} src={dataInstagram[7]?.media_type === 'VIDEO' ? dataInstagram[7]?.thumbnail_url : dataInstagram[7]?.media_url} className="w-20 h-20 rounded-lg object-cover" />
+                            <img alt={`instagram-${dataInstagram[7]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[7]?.permalink)} src={'https://i.imgur.com/UNmsjGS.jpeg'} className="w-20 h-20 rounded-lg object-cover" />
                             {instagram}
                         </div>
                     </div>
@@ -94,34 +96,34 @@ function Instagram() {
                     <div className="lg:flex ">
                         <div>
                             <div onClick={() => abrirPublicacion(dataInstagram[8]?.permalink)} className="relative group rounded-lg object-center object-fit">
-                                <img alt={`instagram-${dataInstagram[8]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[8]?.permalink)} src={dataInstagram[8]?.media_type === 'VIDEO' ? dataInstagram[8]?.thumbnail_url : dataInstagram[8]?.media_url} className="w-96 h-72 rounded-lg object-cover" />
+                                <img alt={`instagram-${dataInstagram[8]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[8]?.permalink)} src={'https://i.imgur.com/UNmsjGS.jpeg'} className="w-96 h-72 rounded-lg object-cover" />
                                 {instagram}
                             </div>
                         </div>
                         <div>
                             <div className="flex ml-6">
                                 <div onClick={() => abrirPublicacion(dataInstagram[9]?.permalink)} className="relative group rounded-lg mt-14">
-                                    <img alt={`instagram-${dataInstagram[9]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[9]?.permalink)} src={dataInstagram[9]?.media_type === 'VIDEO' ? dataInstagram[9]?.thumbnail_url : dataInstagram[9]?.media_url} className="w-20 h-20 rounded-lg object-cover" />
+                                    <img alt={`instagram-${dataInstagram[9]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[9]?.permalink)} src={'https://i.imgur.com/UNmsjGS.jpeg'} className="w-20 h-20 rounded-lg object-cover" />
                                     {instagram}
                                 </div>
                                 <div onClick={() => abrirPublicacion(dataInstagram[10]?.permalink)} className="relative group rounded-lg mb-10 ml-6">
-                                    <img alt={`instagram-${dataInstagram[10]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[10]?.permalink)} src={dataInstagram[10]?.media_type === 'VIDEO' ? dataInstagram[10]?.thumbnail_url : dataInstagram[10]?.media_url} className="w-20 h-24 rounded-lg object-cover" />
+                                    <img alt={`instagram-${dataInstagram[10]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[10]?.permalink)} src={'https://i.imgur.com/UNmsjGS.jpeg'} className="w-20 h-24 rounded-lg object-cover" />
                                     {instagram}
                                 </div>
                             </div>
                             <div onClick={() => abrirPublicacion(dataInstagram[11]?.permalink)} className="relative group rounded-lg sm:ml-6 mt-6 ml-48">
-                                <img alt={`instagram-${dataInstagram[11]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[11]?.permalink)} src={dataInstagram[11]?.media_type === 'VIDEO' ? dataInstagram[11]?.thumbnail_url : dataInstagram[11]?.media_url} className="w-48 h-32 rounded-lg object-cover" />
+                                <img alt={`instagram-${dataInstagram[11]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[11]?.permalink)} src={'https://i.imgur.com/UNmsjGS.jpeg'} className="w-48 h-32 rounded-lg object-cover" />
                                 {instagram}
                             </div>
                         </div>
                     </div>
                     <div className="mt-6 flex">
                         <div onClick={() => abrirPublicacion(dataInstagram[12]?.permalink)} className="relative group rounded-lg mb-8">
-                            <img alt={`instagram-${dataInstagram[12]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[12]?.permalink)} className="w-48 h-48 rounded-lg object-cover" src={dataInstagram[12]?.media_type === 'VIDEO' ? dataInstagram[12]?.thumbnail_url : dataInstagram[12]?.media_url} />
+                            <img alt={`instagram-${dataInstagram[12]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[12]?.permalink)} className="w-48 h-48 rounded-lg object-cover" src={'https://i.imgur.com/UNmsjGS.jpeg'} />
                             {instagram}
                         </div>
                         <div onClick={() => abrirPublicacion(dataInstagram[13]?.permalink)} className="relative group rounded-lg ml-6">
-                            <img alt={`instagram-${dataInstagram[13]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[13]?.permalink)} className="w-72 h-56 rounded-lg object-cover" src={dataInstagram[13]?.media_type === 'VIDEO' ? dataInstagram[13]?.thumbnail_url : dataInstagram[13]?.media_url} />
+                            <img alt={`instagram-${dataInstagram[13]?.permalink.replace("https://www.instagram.com/p/", "")}`} tabIndex={0} onClick={() => abrirPublicacion(dataInstagram[13]?.permalink)} className="w-72 h-56 rounded-lg object-cover" src={'https://i.imgur.com/UNmsjGS.jpeg'} />
                             {instagram}
                         </div>
                     </div>

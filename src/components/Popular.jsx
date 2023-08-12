@@ -9,20 +9,63 @@ import { Link } from "react-router-dom";
 
 function Popular(props) {
 
-    const [dataPopular, setDataPopular] = useState([]);
+    const [dataPopular, setDataPopular] = useState([
+        {
+            "id": 26,
+            "titulo": "prueba 26"
+        },
+        {
+            "id": 12,
+            "titulo": "prueba 12"
+        },
+        {
+            "id": 13,
+            "titulo": "prueba 13"
+        },
+        {
+            "id": 2,
+            "titulo": "prueba 2"
+        },
+        {
+            "id": 5,
+            "titulo": "prueba 5"
+        },
+        {
+            "id": 8,
+            "titulo": "prueba 8"
+        },
+        {
+            "id": 4,
+            "titulo": "prueba 4"
+        },
+        {
+            "id": 1,
+            "titulo": "prueba 1"
+        },
+        {
+            "id": 9,
+            "titulo": "prueba 9"
+        },
+        {
+            "id": 18,
+            "titulo": "prueba 18"
+        }
+    ]);
 
     useEffect(() => {
         inicio();
     }, [props.data]);
 
     const inicio = () => {
-        axios.get(`${api}/${props.data}/`)
+        /*axios.get(`${api}/${props.data}/`)
             .then(res => {
                 setDataPopular(res.data);
+                console.log("popular");
+                console.log(res.data);
             })
             .catch(error => {
                 console.error(error.response.status);
-            });
+            });*/
     };
 
     return (

@@ -14,20 +14,45 @@ function Post(props) {
 
     const { id } = useParams();
 
-    const [dataPost, setDataPost] = useState({ "id": 0, "titulo": "", "imagen_promocional": "", "contenido": "", "localizacion": "", "pdf": "", "video": "", "organizacion": "", "destacado": false, "popularidad": 0, "urls_y_textos": [], "fecha_creacion": "", "tema": 0 });
+    const [dataPost, setDataPost] = useState({
+        "id": 20,
+        "titulo": "prueba 20",
+        "imagen_promocional": "https://i.imgur.com/dkV5le5.jpeg",
+        "contenido": "De esta manera, puedes reutilizar la misma página de detalles de empresa para mostrar información de diferentes empresas, utilizando la misma plantilla genérica pero llenándola con información específica de cada empresa.",
+        "localizacion": "59.3293, 18.0686",
+        "pdf": "/media/pdfs/S00025_5_iPAE5fS.pdf",
+        "video": "https://www.youtube.com/watch?v=8UVNT4wvIGY",
+        "organizacion": "ra",
+        "destacado": false,
+        "popularidad": 2,
+        "urls_y_textos": [
+            {
+                "texto": "",
+                "url": ""
+            },
+            {
+                "texto": "",
+                "url": ""
+            }
+        ],
+        "fecha_creacion": "2023-03-11T04:13:50.065891Z",
+        "tema": 3
+    });
 
     useEffect(() => {
         inicio();
     }, [id]);
 
     const inicio = () => {
-        axios.get(`${api}/articulos/${id}/`)
+        /*axios.get(`${api}/articulos/${id}/`)
             .then(res => {
                 setDataPost(res.data);
+                console.log("post");
+                console.log(res.data);
             })
             .catch(error => {
                 console.error(error.response.status);
-            });
+            });*/
     };
 
     const responsive = {
@@ -73,18 +98,6 @@ function Post(props) {
                     <div className="">
                         <img src={card.url} alt="fingerprint recognition" className="lg:w-full w-auto" />
                         <div className="mt-4">
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center">
-                                    <p className="text-base leading-4 text-gray-500">5 feb</p>
-                                    <p className="text-base leading-none text-gray-500 ml-12">5 min read</p>
-                                </div>
-                                <div className="flex items-center">
-                                    <svg width={64} height={2} viewBox="0 0 64 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M64 1H0" stroke="#6B7280" />
-                                    </svg>
-                                    <p className="text-base leading-none text-gray-500 ml-2">Jeff Bill</p>
-                                </div>
-                            </div>
                             <h1 className="lg:text-3xl text-2xl font-semibold mt-4 text-gray-800">{card.titulo}</h1>
                             <p className="text-base leading-6 text-gray-600 mt-2">{card.texto}</p>
                         </div>
