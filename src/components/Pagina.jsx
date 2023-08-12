@@ -17,8 +17,190 @@ function Pagina() {
                         {'imagen':"https://i.imgur.com/sXuBdnr.png", 'titulo':['Rainforest', 'Alliance'], 'descripcion':"Lorem ipsum dolor sit amet consectetur, adipisicing elit. Rem, minima. Cumque, necessitatibus distinctio earum eum possimus ipsam facere, quaerat recusandae hic, excepturi aperiam aut temporibus laborum aliquid assumenda consequatur sapiente."}
                         ];
 
-    const [dataPosts, setDataPosts] = useState([]);
-    const [dataTemas, setDataTemas] = useState([]);
+    const [dataPosts, setDataPosts] = useState([
+        {
+            "id": 1,
+            "titulo": "prueba 1",
+            "imagen_promocional": "https://i.imgur.com/SR04reG.jpeg",
+            "contenido": "dasdfgfhjksaddjhgsfdtrgef",
+            "organizacion": "ra",
+            "tema": 2
+        },
+        {
+            "id": 3,
+            "titulo": "prueba 3",
+            "imagen_promocional": "https://i.imgur.com/2YQAdPl.jpeg",
+            "contenido": "De esta manera, puedes reutilizar la misma página de detalles de empresa para mostrar información de diferentes empresas, utilizando la misma plantilla genérica pero llenándola con información específica de cada empresa.",
+            "organizacion": "ra",
+            "tema": 2
+        },
+        {
+            "id": 5,
+            "titulo": "prueba 5",
+            "imagen_promocional": "https://i.imgur.com/A3DgRy3.jpeg",
+            "contenido": "dftyuiol,m  cftyukm cfhtyutiokm, mbvgfhtghkn  vbnghfyukhj,nm bvnghjyu",
+            "organizacion": "ra",
+            "tema": 1
+        },
+        {
+            "id": 6,
+            "titulo": "prueba 6",
+            "imagen_promocional": "https://i.imgur.com/RSRKn76.jpeg",
+            "contenido": "edtrfygvb nohuikjbmn ighvjm bncgfnv boljkn,bm dyfchgvn bkfvh n",
+            "organizacion": "ra",
+            "tema": 2
+        },
+        {
+            "id": 7,
+            "titulo": "prueba 7",
+            "imagen_promocional": "https://i.imgur.com/q1PLiVI.jpeg",
+            "contenido": "rdtrfyguhijkn mn;polkikjhugvb sdfghjbnkm, noplikujyhftgcvb oiujyghvbn",
+            "organizacion": "ra",
+            "tema": 2
+        },
+        {
+            "id": 8,
+            "titulo": "prueba 8",
+            "imagen_promocional": "https://i.imgur.com/06uS2oo.jpeg",
+            "contenido": "redtfyguhijoklm, ;pkoljihugyfcvb dfgvhbjknml, ;olkjiuhgcbv ikuhgvbn kjhgvb",
+            "organizacion": "ra",
+            "tema": 2
+        },
+        {
+            "id": 10,
+            "titulo": "prueba 10",
+            "imagen_promocional": "https://i.imgur.com/1zqsyah.jpeg",
+            "contenido": "De esta manera, puedes reutilizar la misma página de detalles de empresa para mostrar información de diferentes empresas, utilizando la misma plantilla genérica pero llenándola con información específica de cada empresa.",
+            "organizacion": "ra",
+            "tema": 1
+        },
+        {
+            "id": 11,
+            "titulo": "prueba 11",
+            "imagen_promocional": "https://i.imgur.com/4zJEe2x.jpeg",
+            "contenido": "De esta manera, puedes reutilizar la misma página de detalles de empresa para mostrar información de diferentes empresas, utilizando la misma plantilla genérica pero llenándola con información específica de cada empresa.",
+            "organizacion": "ra",
+            "tema": 1
+        },
+        {
+            "id": 12,
+            "titulo": "prueba 12",
+            "imagen_promocional": "https://i.imgur.com/1ko2lbN.jpeg",
+            "contenido": "De esta manera, puedes reutilizar la misma página de detalles de empresa para mostrar información de diferentes empresas, utilizando la misma plantilla genérica pero llenándola con información específica de cada empresa.",
+            "organizacion": "ra",
+            "tema": 1
+        },
+        {
+            "id": 13,
+            "titulo": "prueba 13",
+            "imagen_promocional": "https://i.imgur.com/sduLRvf.jpeg",
+            "contenido": "De esta manera, puedes reutilizar la misma página de detalles de empresa para mostrar información de diferentes empresas, utilizando la misma plantilla genérica pero llenándola con información específica de cada empresa.",
+            "organizacion": "ra",
+            "tema": 1
+        },
+        {
+            "id": 14,
+            "titulo": "prueba 14",
+            "imagen_promocional": "https://i.imgur.com/tXtwrPd.jpeg",
+            "contenido": "De esta manera, puedes reutilizar la misma página de detalles de empresa para mostrar información de diferentes empresas, utilizando la misma plantilla genérica pero llenándola con información específica de cada empresa.",
+            "organizacion": "ra",
+            "tema": 1
+        },
+        {
+            "id": 16,
+            "titulo": "prueba 16",
+            "imagen_promocional": "https://i.imgur.com/Xulubox.jpeg",
+            "contenido": "De esta manera, puedes reutilizar la misma página de detalles de empresa para mostrar información de diferentes empresas, utilizando la misma plantilla genérica pero llenándola con información específica de cada empresa.",
+            "organizacion": "ra",
+            "tema": 2
+        },
+        {
+            "id": 17,
+            "titulo": "prueba 17",
+            "imagen_promocional": "https://i.imgur.com/yxovJ4S.jpeg",
+            "contenido": "De esta manera, puedes reutilizar la misma página de detalles de empresa para mostrar información de diferentes empresas, utilizando la misma plantilla genérica pero llenándola con información específica de cada empresa.",
+            "organizacion": "ra",
+            "tema": 2
+        },
+        {
+            "id": 18,
+            "titulo": "prueba 18",
+            "imagen_promocional": "https://i.imgur.com/fNXT1wc.jpeg",
+            "contenido": "De esta manera, puedes reutilizar la misma página de detalles de empresa para mostrar información de diferentes empresas, utilizando la misma plantilla genérica pero llenándola con información específica de cada empresa.",
+            "organizacion": "ra",
+            "tema": 2
+        },
+        {
+            "id": 19,
+            "titulo": "prueba 19",
+            "imagen_promocional": "https://i.imgur.com/gjEZAJ7.jpeg",
+            "contenido": "De esta manera, puedes reutilizar la misma página de detalles de empresa para mostrar información de diferentes empresas, utilizando la misma plantilla genérica pero llenándola con información específica de cada empresa.",
+            "organizacion": "ra",
+            "tema": 2
+        },
+        {
+            "id": 20,
+            "titulo": "prueba 20",
+            "imagen_promocional": "https://i.imgur.com/dkV5le5.jpeg",
+            "contenido": "De esta manera, puedes reutilizar la misma página de detalles de empresa para mostrar información de diferentes empresas, utilizando la misma plantilla genérica pero llenándola con información específica de cada empresa.",
+            "organizacion": "ra",
+            "tema": 3
+        },
+        {
+            "id": 21,
+            "titulo": "prueba 21",
+            "imagen_promocional": "https://i.imgur.com/iNM4eIa.jpeg",
+            "contenido": "De esta manera, puedes reutilizar la misma página de detalles de empresa para mostrar información de diferentes empresas, utilizando la misma plantilla genérica pero llenándola con información específica de cada empresa.",
+            "organizacion": "ra",
+            "tema": 3
+        },
+        {
+            "id": 22,
+            "titulo": "prueba 22",
+            "imagen_promocional": "https://i.imgur.com/M50O5pj.jpeg",
+            "contenido": "De esta manera, puedes reutilizar la misma página de detalles de empresa para mostrar información de diferentes empresas, utilizando la misma plantilla genérica pero llenándola con información específica de cada empresa.",
+            "organizacion": "ra",
+            "tema": 3
+        },
+        {
+            "id": 23,
+            "titulo": "prueba 23",
+            "imagen_promocional": "https://i.imgur.com/TvY6Ynf.jpeg",
+            "contenido": "De esta manera, puedes reutilizar la misma página de detalles de empresa para mostrar información de diferentes empresas, utilizando la misma plantilla genérica pero llenándola con información específica de cada empresa.",
+            "organizacion": "ra",
+            "tema": 3
+        },
+        {
+            "id": 24,
+            "titulo": "prueba 24",
+            "imagen_promocional": "https://i.imgur.com/VRcVIoj.jpeg",
+            "contenido": "De esta manera, puedes reutilizar la misma página de detalles de empresa para mostrar información de diferentes empresas, utilizando la misma plantilla genérica pero llenándola con información específica de cada empresa.",
+            "organizacion": "ra",
+            "tema": 3
+        },
+        {
+            "id": 25,
+            "titulo": "prueba 25",
+            "imagen_promocional": "https://i.imgur.com/jedKbER.jpeg",
+            "contenido": "De esta manera, puedes reutilizar la misma página de detalles de empresa para mostrar información de diferentes empresas, utilizando la misma plantilla genérica pero llenándola con información específica de cada empresa.",
+            "organizacion": "ra",
+            "tema": 3
+        }
+    ]);
+    const [dataTemas, setDataTemas] = useState([
+        {
+            "id": 1,
+            "nombre": "Vida marina"
+        },
+        {
+            "id": 2,
+            "nombre": "Microbiologia"
+        },
+        {
+            "id": 3,
+            "nombre": "Ecosistema"
+        }
+    ]);
     const [dataPagina, setDataPagina] = useState({'imagen':"", 'titulo':['', ''], 'descripcion':""});
 
 
@@ -27,7 +209,7 @@ function Pagina() {
     }, [id]);
 
     const inicio = () => {
-        axios.get(`${api}/articulosOrganizacion/${id}/`)
+        /*axios.get(`${api}/articulosOrganizacion/${id}/`)
             .then(res => {
                 setDataPosts(res.data);
                 console.log("pagina1");
@@ -44,7 +226,7 @@ function Pagina() {
             })
             .catch(error => {
                 console.error(error.response.status);
-            });
+            });*/
         switch (id) {
             case 'ng':
                 setDataPagina(dataPaginas[0])
